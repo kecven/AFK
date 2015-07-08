@@ -1,0 +1,34 @@
+group 'AFK'
+version '0.0.1'
+
+
+apply plugin: 'java'
+apply plugin:'application'
+
+[compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
+
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8
+
+mainClassName = 'net.autoforkey.Main'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.11'
+    compile 'com.github.tulskiy:jkeymaster:1.1'
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.2'
+    distributionUrl = "https://services.gradle.org/distributions/gradle-$gradleVersion-all.zip"
+}
+
+jar{
+    manifest {
+        attributes("Main-Class": mainClassName)
+        attributes("Class-Path": "./libs/jkeymaster-1.2-SNAPSHOT.jar ./libs/jna-4.1.0.jar")
+    }
+}
