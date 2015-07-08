@@ -2,6 +2,7 @@ package net.autoforkey.methods;
 
 import net.autoforkey.Main;
 import net.autoforkey.ScriptRunnable;
+import net.autoforkey.form.Alert;
 
 import javax.swing.*;
 import java.awt.*;
@@ -102,93 +103,18 @@ public class SystemJSAImpl implements SystemJSA {
     /**
      * Класс который выводится при вызове alert()
      */
-    private class FrameForAlert extends JFrame {
-        public void start(String text, String button, int time, int x, int y) throws Exception {
-            FrameForAlert frame = new FrameForAlert();
-            frame.showDialog(text, button, time, x, y);
-        }
 
-        private class ConnectDialog extends JDialog {
-            private JLabel label;
-            public ConnectDialog(String text, String button, int time, int x, int y) {
-                super((Frame)null, "", true);
-
-                    if ("".equals(button)){
-                        button = "OK";
-                    }
-
-                    JButton b = new JButton(button);
-                    getContentPane().add(b, BorderLayout.SOUTH);
-
-                    ConnectDialog.this.addKeyListener(new KeyListener() {
-                        @Override
-                        public void keyTyped(KeyEvent e) {
-
-                        }
-
-                        @Override
-                        public void keyPressed(KeyEvent e) {
-                            System.out.println(e.getKeyLocation());
-                        }
-
-                        @Override
-                        public void keyReleased(KeyEvent e) {
-
-                        }
-                    });
-                    b.addActionListener(new ActionListener() {
-                        public void actionPerformed(ActionEvent e) {
-                            new Hider(ConnectDialog.this, 0).start();
-
-                        }
-                    });
-
-
-                label = new JLabel(text);
-                getContentPane().add(label,BorderLayout.CENTER);
-
-                if (time != 0){
-                    new Hider(ConnectDialog.this, time).start();
-                }
-
-
-                pack();
-                setLocation(x, y);
-            }
-        }
-        //
-        public void showDialog(String text, String button, int time, int x, int y) throws HeadlessException {
-            JDialog dlg = new ConnectDialog(text, button, time, x, y);
-            dlg.setVisible(true);
-        }
-        private class Hider extends Thread {
-            private JDialog dialogToClose;
-            private int time;
-
-            public Hider(JDialog dialogToClose, int time) {
-                this.dialogToClose = dialogToClose;
-                this.time = time;
-            }
-
-            public void run() {
-                try {
-                    Thread.sleep(time);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                dialogToClose.setVisible(false);
-            }
-        }
-    }
     @Override
-    public void alert(String text, String button, int time, int x, int y) {
+    public void alert(String text) {
+        Alert.information(text);
 
-
+        /*
         FrameForAlert f = new FrameForAlert();
 
         try {
             f.start(text, button, time, x, y);
         } catch (Exception e) {}
+        */
     }
 
     @Override

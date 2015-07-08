@@ -105,18 +105,8 @@ function run(scriptName, func) {
     }
 }
 
-function alert(text, button, time, x, y) {
-    if (button == undefined){
-        button = ""
-    }
-    if (time == undefined){
-        time = 0
-    }
-    if (x == undefined){
-        x = sys.getScreenSize().width / 5 * 2;
-        y = sys.getScreenSize().height / 5 * 2;
-    }
-    return sys.alert(text, button, time, x, y)
+function alert(text) {
+    return sys.alert(text)
 }
 
 function getKey(code){

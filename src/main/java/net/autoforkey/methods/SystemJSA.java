@@ -86,7 +86,7 @@ public interface SystemJSA {
      * @param x
      * @param y
      */
-    public void alert(String text, String button, int time, int x, int y);
+    public void alert(String text);
 
     /**
      * Получить разрешение экрана
