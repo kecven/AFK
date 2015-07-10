@@ -1,8 +1,5 @@
 package net.autoforkey;
 
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-
 /*
 набор модулей:
 
@@ -13,15 +10,22 @@ import java.util.concurrent.Executors;
  * Created by andrei on 05.07.15.
  */
 public class Main {
-    public static ExecutorService executors = Executors.newCachedThreadPool();
-    public static void main(String[] args) {
-        //executors.execute(new ScriptRunnable("main", "script.afk"));
-        //executors.execute(new ScriptRunnable("notSpoilEye", "notSpoilEye.afk"));
+    //public static ExecutorService executors = Executors.newCachedThreadPool();
+    public static void main(String[] args) throws InterruptedException {
 
-        //executors.execute(new ScriptRunnable("main", "script2.afk"));
+    //    Thread.sleep(10000);
+        //executors.submit()
         for(int i = 0; i < args.length; i++){
-            executors.execute(new ScriptRunnable("main", args[i]));
+            //executors.submit(new ScriptRunnable("main", args[i]));
+            //new Thread(new ScriptRunnable("main", args[i])).start();
+            runScript(new ScriptRunnable("main", args[i]));
+            //System.out.println(args[i]);
         }
+
+    }
+
+    public static void runScript(ScriptRunnable thread){
+        new Thread(thread).start();
 
     }
 

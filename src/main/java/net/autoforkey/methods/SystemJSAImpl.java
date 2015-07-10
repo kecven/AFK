@@ -2,14 +2,9 @@ package net.autoforkey.methods;
 
 import net.autoforkey.Main;
 import net.autoforkey.ScriptRunnable;
-import net.autoforkey.form.Alert;
+import net.autoforkey.form.App;
 
-import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.function.Predicate;
@@ -67,12 +62,14 @@ public class SystemJSAImpl implements SystemJSA {
 
     @Override
     public void run(String scriptName, Predicate<Object> func) {
-        Main.executors.execute(new ScriptRunnable(scriptName, func));
+        //Main.executors.execute(new ScriptRunnable(scriptName, func));
+        Main.runScript(new ScriptRunnable(scriptName, func));
     }
 
     @Override
     public void run(Predicate<Object> func) {
-        Main.executors.execute(new ScriptRunnable(func));
+        //Main.executors.execute(new ScriptRunnable(func));
+        Main.runScript(new ScriptRunnable(func));
     }
 
     @Override
@@ -105,8 +102,8 @@ public class SystemJSAImpl implements SystemJSA {
      */
 
     @Override
-    public void alert(String text) {
-        Alert.information(text);
+    public void alert(String text, int time) {
+        (new App(text, time)).information();
 
         /*
         FrameForAlert f = new FrameForAlert();

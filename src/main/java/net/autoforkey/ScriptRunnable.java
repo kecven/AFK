@@ -70,25 +70,22 @@ public class ScriptRunnable implements Runnable {
 
     @Override
     public void run() {
+
         if (scriptName != null) {
             Thread.currentThread().setName(scriptName);
         }
         //Если запускаем новый скрипт
         if (func == null) {
             InputStream systemJSA = ScriptRunnable.class.getResourceAsStream("methods/system.afk");
+
             eval(systemJSA, "methods/system.afk");
 
             eval(fileName);
         } else {
             //Запускаем новый поток в скрипте
-
-        //    try {
-        //        System.out.println("Script name = " + scriptName);
-        //        scriptEngine.eval("var scriptName=\"" + scriptName +"\",fileName=\"" + fileName + "\";");
-        //    } catch (ScriptException e) {}
-
             func.test(scriptName);
         }
+
 
     }
 
@@ -106,6 +103,7 @@ public class ScriptRunnable implements Runnable {
         } catch (FileNotFoundException e) {
             System.err.println("File not found. " + fileName);
         }
+
     }
 
     private void eval(InputStream file, String fileName){
@@ -160,6 +158,7 @@ public class ScriptRunnable implements Runnable {
             jsCode.replace(hashCodeIndex, endIndex, macro(jsCode.substring(hashCodeIndex, endIndex)));
         }
 
+        /*
         hashCodeIndex = 0;
         while ( -1 != (hashCodeIndex = jsCode.indexOf(";#", hashCodeIndex))) {
             //нужно инкриментировать hashCodeIndex, что бы был endIndex != hashCodeIndex и вообще оно всё не будет работать
@@ -175,9 +174,11 @@ public class ScriptRunnable implements Runnable {
             //заменяем макрос на рабочий код
             jsCode.replace(hashCodeIndex, endIndex, macro(jsCode.substring(hashCodeIndex, endIndex)));
         }
+        */
 
 
-        return jsCode.toString();
+        //В начале мы добавляем к программе лишний Enter, по этому его нужно убрать
+        return jsCode.toString().replaceFirst("\n\n", "\n");
     }
 
     /**
@@ -195,11 +196,6 @@ public class ScriptRunnable implements Runnable {
         if (code.indexOf("#include ") == 0){    //подключение библиотеки
 
             String includeFileName = code.substring(9).trim();
-/*
-            if (includeOnceList.contains(includeFileName)){
-                return "";
-            }
-*/
             //Меняем имя исполняемого файла, что бы ошибки выдавало в правильном файле
             String last_fileName = this.fileName;
             this.fileName = includeFileName;
@@ -246,7 +242,7 @@ public class ScriptRunnable implements Runnable {
      * @throws IOException
      */
     private String getCodeFromStream(InputStream file) throws IOException {
-        String firstStr = "var scriptName=\"" + scriptName +"\",fileName=\"" + fileName + "\";";
+        String firstStr = "var scriptName=\"" + scriptName +"\",fileName=\"" + fileName + "\";\n";
 
         StringBuilder javaScriptCode = new StringBuilder(firstStr);
 

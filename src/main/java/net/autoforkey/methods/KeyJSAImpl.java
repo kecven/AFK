@@ -27,7 +27,7 @@ import java.util.function.Predicate;
 public class KeyJSAImpl extends SystemJSAImpl implements KeyJSA, ClipboardOwner {
 
     //private Robot robot = SystemJSAImpl.robot;
-    private Provider provider = Provider.getCurrentProvider(true);
+    private static Provider provider = null;
     private static final List<Integer> MODIFIERS = Arrays.asList(KeyEvent.VK_ALT, KeyEvent.VK_CONTROL, KeyEvent.VK_SHIFT, KeyEvent.VK_META);
     private Map<String, Integer> keys = staticKeys;
     private static Map<String, Integer> staticKeys = initKeys();
@@ -113,9 +113,11 @@ public class KeyJSAImpl extends SystemJSAImpl implements KeyJSA, ClipboardOwner 
         }
 
     public void setHotKey(String hotKey, Predicate<Object> func){
+        startHotKey();
         final HotKeyListener listener = new HotKeyListener() {
             public void onHotKey(final HotKey key) {
-                Main.executors.execute(new ScriptRunnable(hotKey, func));
+                Main.runScript(new ScriptRunnable(hotKey, func));
+
             }
         };
 
@@ -129,6 +131,7 @@ public class KeyJSAImpl extends SystemJSAImpl implements KeyJSA, ClipboardOwner 
     }
 
     public void setSyncHotKey(String hotKey, Predicate<Object> func){
+        startHotKey();
         final HotKeyListener listener = new HotKeyListener() {
             public void onHotKey(final HotKey key) {
                 func.test(func);
@@ -147,6 +150,7 @@ public class KeyJSAImpl extends SystemJSAImpl implements KeyJSA, ClipboardOwner 
     public void stopHotKey(){
         provider.reset();
         provider.stop();
+        provider = null;
     }
 
     @Override
@@ -155,7 +159,8 @@ public class KeyJSAImpl extends SystemJSAImpl implements KeyJSA, ClipboardOwner 
     }
 
     public void startHotKey(){
-        provider = Provider.getCurrentProvider(true);
+        if (provider == null)
+            provider = Provider.getCurrentProvider(true);
     }
 
     public void resetHotKey(){
