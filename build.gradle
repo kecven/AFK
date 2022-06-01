@@ -1,5 +1,5 @@
 group 'AFK'
-version '0.0.1'
+version '0.0.3'
 
 
 apply plugin: 'java'

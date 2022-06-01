@@ -146,12 +146,14 @@ public class ScriptRunnable implements Runnable {
             //нужно инкриментировать hashCodeIndex, что бы был endIndex != hashCodeIndex и вообще оно всё не будет работать
             //ищем конец строки макроса
             endIndex = jsCode.indexOf("\n", ++hashCodeIndex);
+
+            /*
             endIndex2 = jsCode.indexOf(";", hashCodeIndex);
 
             if ((endIndex2 != -1) && (endIndex2 < endIndex)){
                 endIndex = endIndex2;
             }
-
+            */
             //System.out.printf("hashCodeIndex = " + hashCodeIndex + " end = " + endIndex);
 
             //заменяем макрос на рабочий код

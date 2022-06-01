@@ -2,7 +2,7 @@ package net.autoforkey.methods;
 
 import net.autoforkey.Main;
 import net.autoforkey.ScriptRunnable;
-import net.autoforkey.form.App;
+import net.autoforkey.form.Alert;
 
 import java.awt.*;
 import java.io.IOException;
@@ -103,15 +103,7 @@ public class SystemJSAImpl implements SystemJSA {
 
     @Override
     public void alert(String text, int time) {
-        (new App(text, time)).information();
-
-        /*
-        FrameForAlert f = new FrameForAlert();
-
-        try {
-            f.start(text, button, time, x, y);
-        } catch (Exception e) {}
-        */
+        (new Alert(text, time)).show();
     }
 
     @Override

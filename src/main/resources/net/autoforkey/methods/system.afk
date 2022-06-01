@@ -1,5 +1,6 @@
 var sys = Java.type("net.autoforkey.methods.SystemJSAImpl")
 sys = new sys()
+var system = new sys()
 var mouse = Java.type("net.autoforkey.methods.MouseJSAImpl")
 mouse = new mouse()
 

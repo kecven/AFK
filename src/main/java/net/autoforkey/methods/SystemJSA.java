@@ -81,10 +81,7 @@ public interface SystemJSA {
     /**
      * Вывести информационное сообщение
      * @param text
-     * @param button
      * @param time
-     * @param x
-     * @param y
      */
     public void alert(String text, int time);
 

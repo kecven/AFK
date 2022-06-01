@@ -5,26 +5,26 @@ package net.autoforkey;
 
  */
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 /**
  *
  * Created by andrei on 05.07.15.
  */
 public class Main {
-    //public static ExecutorService executors = Executors.newCachedThreadPool();
+    public static ExecutorService executors = Executors.newCachedThreadPool();
     public static void main(String[] args) throws InterruptedException {
 
-    //    Thread.sleep(10000);
-        //executors.submit()
         for(int i = 0; i < args.length; i++){
-            //executors.submit(new ScriptRunnable("main", args[i]));
-            //new Thread(new ScriptRunnable("main", args[i])).start();
             runScript(new ScriptRunnable("main", args[i]));
-            //System.out.println(args[i]);
         }
 
     }
 
     public static void runScript(ScriptRunnable thread){
+        //executors.submit(thread);
+        //executors.execute(thread);
         new Thread(thread).start();
 
     }
