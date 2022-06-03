@@ -1,1 +1,4 @@
-// script
+while (true) {
+    alert("Take a pause", 1500)         // Show msg gor 1.5 sec
+    sleep(1000 * 60 * 60 * 15)          // Wait 15 minutes
+}

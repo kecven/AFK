@@ -10,7 +10,7 @@ import java.awt.event.InputEvent;
 public class MouseJSAImpl extends SystemJSAImpl implements MouseJSA {
 
     Robot robot = SystemJSAImpl.robot;
-    private int[] mouseButton = {InputEvent.BUTTON1_MASK, InputEvent.BUTTON2_MASK, InputEvent.BUTTON3_MASK};
+    private final int[] mouseButton = {InputEvent.BUTTON1_DOWN_MASK, InputEvent.BUTTON2_DOWN_MASK, InputEvent.BUTTON3_DOWN_MASK};
 
     @Override
     public void click() {
@@ -41,7 +41,7 @@ public class MouseJSAImpl extends SystemJSAImpl implements MouseJSA {
         click();
         try {
             Thread.sleep(10);
-        } catch (InterruptedException e) {}
+        } catch (InterruptedException ignored) {}
 
         click();
     }
@@ -51,7 +51,7 @@ public class MouseJSAImpl extends SystemJSAImpl implements MouseJSA {
         click(x, y);
         try {
             Thread.sleep(10);
-        } catch (InterruptedException e) {}
+        } catch (InterruptedException ignored) {}
         click();
     }
 
@@ -60,7 +60,7 @@ public class MouseJSAImpl extends SystemJSAImpl implements MouseJSA {
         click(mouseButton[button]);
         try {
             Thread.sleep(10);
-        } catch (InterruptedException e) {}
+        } catch (InterruptedException ignored) {}
         click(mouseButton[button]);
     }
 
@@ -69,7 +69,7 @@ public class MouseJSAImpl extends SystemJSAImpl implements MouseJSA {
         click(mouseButton[button], x, y);
         try {
             Thread.sleep(10);
-        } catch (InterruptedException e) {}
+        } catch (InterruptedException ignored) {}
         click(mouseButton[button]);
     }
 
@@ -134,7 +134,7 @@ public class MouseJSAImpl extends SystemJSAImpl implements MouseJSA {
 
             try {
                 Thread.sleep(timeSleep);
-            } catch (InterruptedException e) {}
+            } catch (InterruptedException ignored) {}
         }
 
     }

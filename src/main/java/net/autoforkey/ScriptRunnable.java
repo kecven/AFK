@@ -1,5 +1,8 @@
 package net.autoforkey;
 
+import org.graalvm.polyglot.Context;
+import org.graalvm.polyglot.HostAccess;
+
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
@@ -21,11 +24,11 @@ public class ScriptRunnable implements Runnable {
     private String fileName;
     private String scriptName;  //Название скрипта
     //private SystemJSA sys = new SystemJSAImpl();
-    private List<String> includeOnceList = new ArrayList<>();
-
-    private ScriptEngineManager scriptEngineManager = new ScriptEngineManager();
-    private ScriptEngine scriptEngine = scriptEngineManager.getEngineByName("nashorn");
-
+    private final List<String> includeOnceList = new ArrayList<>();
+    Context context = Context.newBuilder("js")
+            .allowHostClassLookup(s -> true)
+            .allowHostAccess(HostAccess.ALL)
+            .build();
     /**
      * Функция для запуска в отдельном потоке
      */
@@ -110,17 +113,19 @@ public class ScriptRunnable implements Runnable {
         try {
             String jsCode = getCodeFromStream(file);
             jsCode = runMacros(jsCode);
-            scriptEngine.eval(jsCode);
+
+                context.eval("js", jsCode);
+
         } catch (IOException e) {
             System.err.println("Error reading file  " + fileName + ".\n" + e.getMessage());
-        } catch (ScriptException e) {
-            System.err.println("Runtime error in file " + fileName + ".\n" + e.getMessage());
+        } catch (Exception e) {
+            System.err.println("Error in file  " + fileName + ".\n" + e.getMessage());
         }
     }
 
     /**
      * Подставляются удобные макросы
-     * @param code
+     * @param code - code of script
      * @return
      */
     private String runMacros(String code){
