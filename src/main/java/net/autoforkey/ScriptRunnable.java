@@ -114,7 +114,7 @@ public class ScriptRunnable implements Runnable {
             String jsCode = getCodeFromStream(file);
             jsCode = runMacros(jsCode);
 
-                context.eval("js", jsCode);
+            context.eval("js", jsCode);
 
         } catch (IOException e) {
             System.err.println("Error reading file  " + fileName + ".\n" + e.getMessage());
