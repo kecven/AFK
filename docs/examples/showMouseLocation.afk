@@ -1,0 +1,4 @@
+while(true) {
+    alert(mouse.getLoc().x + ", " + mouse.getLoc().y, 1000);
+    sleep(1000);
+}

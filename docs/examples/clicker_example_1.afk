@@ -19,5 +19,4 @@ for(var i = 0; i < 200; i++) {
     mouse.click(1256, 117);
     sleep(500);
 
-
 }

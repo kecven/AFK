@@ -1,11 +1,9 @@
 package net.autoforkey;
 
+import net.autoforkey.scripts.SystemScript;
 import org.graalvm.polyglot.Context;
 import org.graalvm.polyglot.HostAccess;
 
-import javax.script.ScriptEngine;
-import javax.script.ScriptEngineManager;
-import javax.script.ScriptException;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -79,9 +77,7 @@ public class ScriptRunnable implements Runnable {
         }
         //Если запускаем новый скрипт
         if (func == null) {
-            InputStream systemJSA = ScriptRunnable.class.getResourceAsStream("methods/system.afk");
-
-            eval(systemJSA, "methods/system.afk");
+            eval(SystemScript.SCRIPT, SystemScript.SCRIPT_NAME);
 
             eval(fileName);
         } else {
@@ -107,6 +103,10 @@ public class ScriptRunnable implements Runnable {
             System.err.println("File not found. " + fileName);
         }
 
+    }
+
+    private void eval(String file, String fileName) {
+        eval(new ByteArrayInputStream(file.getBytes()), fileName);
     }
 
     private void eval(InputStream file, String fileName){
