@@ -6,4 +6,5 @@ Universal clicker based on JavaScript
     ./afk.sh ./script.afk
 
 ## Documentation
-![Documentation](https://github.com/kecven/AFK/tree/master/docs/)
+
+https://github.com/checkmarx-ltd/cx-flow/wiki
