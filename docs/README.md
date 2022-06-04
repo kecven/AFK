@@ -4,7 +4,7 @@ Universal clicker based on GraalVM and JavaScript
 
 # Methods
 
-## Key
+### Key
 
     void press(int key)
     void press(String key)
@@ -17,7 +17,7 @@ Universal clicker based on GraalVM and JavaScript
     void stopHotKey()
     int getKey(String code)
 
-## Mouse
+### Mouse
 
     void click()
     void click(int x, int y)
@@ -44,7 +44,7 @@ Universal clicker based on GraalVM and JavaScript
     // get location of mouse
     Point getLoc()
 
-## System
+### System
 
 
     /**
