@@ -1,23 +1,8 @@
 
-for(var i = 0; i < 200; i++) {
+for(var i = 0; i < 2; i++) {
     print(i + " ");
+    alert(i + " ", 2000);
 
-    mouse.click(810, 12);
-    sleep(300);
-
-    mouse.dblClick(650, 650);
-    sleep(10000);
-
-
-    mouse.click(491, 853);
-    sleep(1000);
-
-    mouse.click(911, 705);
-    sleep(10000);
-
-
-    mouse.click(1256, 117);
-    sleep(500);
-
-
+    mouse.move(i, i);
+    sleep(3000);
 }

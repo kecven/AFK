@@ -7,6 +7,7 @@ package net.autoforkey;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 /**
  *
@@ -14,7 +15,7 @@ import java.util.concurrent.Executors;
  */
 public class Main {
     public static ExecutorService executors = Executors.newCachedThreadPool();
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) {
 
         for(int i = 0; i < args.length; i++){
             runScript(new ScriptRunnable("main", args[i]));
@@ -22,10 +23,15 @@ public class Main {
 
     }
 
-    public static void runScript(ScriptRunnable thread){
-        //executors.submit(thread);
+    public static void runScript(ScriptRunnable thread) {
+        try {
+            executors.submit(thread);
+            executors.awaitTermination(10_000, TimeUnit.DAYS);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
         //executors.execute(thread);
-        new Thread(thread).start();
+//        new Thread(thread).start();
 
     }
 

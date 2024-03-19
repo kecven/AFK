@@ -115,6 +115,7 @@ public class SystemScript {
                 if (time == undefined){
                     time = 0
                 }
+                text = text + ""
                 return sys.alert(text, time)
             }
                         

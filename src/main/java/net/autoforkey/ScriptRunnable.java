@@ -85,6 +85,7 @@ public class ScriptRunnable implements Runnable {
             func.test(scriptName);
         }
 
+        System.exit(0);
 
     }
 

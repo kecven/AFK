@@ -1,12 +1,5 @@
 package net.autoforkey.methods;
 
-import com.tulskiy.keymaster.common.HotKey;
-import com.tulskiy.keymaster.common.HotKeyListener;
-import com.tulskiy.keymaster.common.Provider;
-import net.autoforkey.Main;
-import net.autoforkey.ScriptRunnable;
-
-import javax.swing.*;
 import java.awt.*;
 import java.awt.datatransfer.*;
 import java.awt.event.KeyEvent;
@@ -15,7 +8,6 @@ import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-import java.util.function.Predicate;
 
 /**
  * Created by andrei on 05.07.15.
@@ -23,7 +15,6 @@ import java.util.function.Predicate;
 public class KeyJSAImpl extends SystemJSAImpl implements KeyJSA, ClipboardOwner {
 
     //private Robot robot = SystemJSAImpl.robot;
-    private static Provider provider = null;
     private static final List<Integer> MODIFIERS = Arrays.asList(KeyEvent.VK_ALT, KeyEvent.VK_CONTROL, KeyEvent.VK_SHIFT, KeyEvent.VK_META);
     private static Map<String, Integer> staticKeys = initKeys();
 
@@ -109,50 +100,10 @@ public class KeyJSAImpl extends SystemJSAImpl implements KeyJSA, ClipboardOwner 
         return null;
     }
 
-    public void setHotKey(String hotKey, Predicate<Object> func) {
-        startHotKey();
-        final HotKeyListener listener = key -> Main.runScript(new ScriptRunnable(hotKey, func));
-
-        if (hotKey != null && hotKey.length() > 0) {
-            try {
-                provider.register(KeyStroke.getKeyStroke(hotKey), listener);
-            } catch (Exception e) {
-                System.err.println("Error init HotKey");
-            }
-        }
-    }
-
-    public void setSyncHotKey(String hotKey, Predicate<Object> func) {
-        startHotKey();
-        final HotKeyListener listener = key -> func.test(func);
-
-        if (hotKey != null && hotKey.length() > 0) {
-            try {
-                provider.register(KeyStroke.getKeyStroke(hotKey), listener);
-            } catch (Exception e) {
-                System.err.println("Error init HotKey");
-            }
-        }
-    }
-
-    public void stopHotKey() {
-        provider.reset();
-        provider.stop();
-        provider = null;
-    }
 
     @Override
     public int getKey(String code) {
         return staticKeys.get(code);
-    }
-
-    public void startHotKey() {
-        if (provider == null)
-            provider = Provider.getCurrentProvider(true);
-    }
-
-    public void resetHotKey() {
-        provider.reset();
     }
 
 }

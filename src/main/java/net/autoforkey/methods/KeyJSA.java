@@ -20,11 +20,5 @@ public interface KeyJSA {
 
     public String getClipboard();
 
-    public void setHotKey(String hotKey, Predicate<Object> func);
-
-    public void setSyncHotKey(String hotKey, Predicate<Object> func);
-
-    public void stopHotKey();
-
     public int getKey(String code);
 }
